@@ -39,6 +39,9 @@ ts-node
 .idea
 *.iml
 
+*.swp
+*.swo
+
 /tools/**/*.js
 dist
 dev

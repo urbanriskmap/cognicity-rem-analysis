@@ -1,7 +1,7 @@
 import { join } from 'path';
 
 import { SeedConfig } from './seed.config';
-// import { ExtendPackages } from './seed.config.interfaces';
+import { ExtendPackages } from './seed.config.interfaces';
 
 /**
  * This class extends the basic seed configuration, allowing for project specific overrides. A few examples can be found
@@ -22,7 +22,9 @@ export class ProjectConfig extends SeedConfig {
     // Add `NPM` third-party libraries to be injected/bundled.
     this.NPM_DEPENDENCIES = [
       ...this.NPM_DEPENDENCIES,
-      // {src: 'jquery/dist/jquery.min.js', inject: 'libs'},
+      {src: 'leaflet/dist/leaflet.css', inject: true},
+      {src: 'vis/dist/vis.js', inject: true},
+      {src: 'vis/dist/vis.min.css', inject: true},
       // {src: 'lodash/lodash.min.js', inject: 'libs'},
     ];
 
@@ -58,6 +60,12 @@ export class ProjectConfig extends SeedConfig {
 
     /* Add to or override NPM module configurations: */
     // this.PLUGIN_CONFIGS['browser-sync'] = { ghostMode: false };
+    let additionalPackages: ExtendPackages[] = [{
+      name: 'leaflet',
+      path: 'node_modules/leaflet/dist/leaflet.js'
+    }];
+
+    this.addPackagesBundles(additionalPackages); 
   }
 
 }
