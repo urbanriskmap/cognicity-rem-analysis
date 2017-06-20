@@ -5,7 +5,7 @@ import { MapComponent } from './map.component';
 @NgModule({
   imports: [
     RouterModule.forChild([
-      { path: 'map', component: MapComponent }
+      { path: '', component: MapComponent }
     ])
   ],
   exports: [RouterModule]
