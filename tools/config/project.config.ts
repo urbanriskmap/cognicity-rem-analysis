@@ -63,8 +63,12 @@ export class ProjectConfig extends SeedConfig {
     let additionalPackages: ExtendPackages[] = [{
       name: 'leaflet',
       path: 'node_modules/leaflet/dist/leaflet.js'
+    }, {
+      name: 'topojson',
+      path: 'node_modules/topojson/dist/topojson.js'
     }];
 
+    
     this.addPackagesBundles(additionalPackages); 
   }
 
