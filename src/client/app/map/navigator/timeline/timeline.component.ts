@@ -12,6 +12,11 @@ declare var vis: any;
 
 export class TimelineComponent {
 
+  constructor() {
+    this.start = new Date('2017-01-12');
+    this.end = new Date('2017-01-30');
+  }
+
   ngAfterViewInit() {
     //TODO fix this! should not be using document.get ... 
     let container = document.getElementById('vis-timeline'); 
@@ -29,17 +34,27 @@ export class TimelineComponent {
     // Configuration for the Timeline
     var options = {
       width: "100%", 
+      showCurrentTime: true,
     };
 
     // Create a Timeline
     var timeline = new vis.Timeline(container, items, options);
 
-    let customStartDate = new Date('2017-01-12'); 
-    timeline.addCustomTime(customStartDate, 'start'); 
-    let customEndDate = new Date('2017-01-30'); 
-    timeline.addCustomTime(customEndDate, 'end'); 
-    //    timeline.on('timechange', function(properties) {
-    //      timeline.setCustomTime(properties.time.getTime());
-    //    }); 
+    timeline.addCustomTime(this.start, 'start'); 
+    timeline.addCustomTime(this.end, 'end'); 
+
+    timeline.on('timechange', function(properties) {
+      if (properties.id === 'start') {
+        this.start = properties.time.toISOString();
+        console.log('start:' + properties.time.toISOString()); 
+      } else if (properties.id === 'end' {
+        this.end = properties.time.toISOString();
+        console.log('end:' + properties.time.toISOString()); 
+      } else {
+        //error
+        console.error(properties); 
+      }
+      console.log(properties); 
+    }); 
   }
 } 
