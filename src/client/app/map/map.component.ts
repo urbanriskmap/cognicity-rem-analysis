@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { NavigatorComponent } from './navigator/navigator.component';
 import { MapService } from './map.service';
+import { TimeRange } from './timeline/timeline.module';
 
 
 @Component({
@@ -13,14 +14,14 @@ import { MapService } from './map.service';
 })
 export class MapComponent implements OnInit {
   map = "";
+  defaultRange = { start: new Date('2017-01-13T01:00:00-0000'), end: new Date('2017-01-14T01:00:00-0500')}; 
 
   constructor(private mapService: MapService) {
     this.map = "the map goes here";
   }
 
-  getData(): void {
-    //this.reports = this.mapService.allReportsBetweenDates();
-    this.mapService.allReportsBetweenDates().subscribe(
+  getData(range: TimeRange): void {
+    this.mapService.allReportsBetweenDates(defaultRange).subscribe(
       reports => {
         this.reports = reports;
         console.log(this.reports); 
@@ -30,10 +31,14 @@ export class MapComponent implements OnInit {
       }); 
   }
 
+  onDateChange(range: TimeRange) :void {
+    //the user has dragged the start or end bar, now need to ask the server 
+    //for that slice of time
+    console.log("got new date range"); 
+    console.log(range); 
+  }
+
   ngOnInit(): void {
     this.getData();
   }
-
-
-
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'; 
 import { Output } from '@angular/core'; 
 import { EventEmitter } from '@angular/core'; 
+import { TimeRange } from './timeline.module';
 
 //vis is bundled into the global namespace
 declare var vis: any; 
@@ -12,10 +13,13 @@ declare var vis: any;
   styleUrls: ['timeline.component.css']
 }) 
 
+
 export class TimelineComponent {
-  start = new Date('2017-01-12');
-  end = new Date('2017-01-30');
-  @Output notifyDateChange: EventEmitter<string>;
+  range = { 
+    start: new Date('2017-01-12'),
+    end: new Date('2017-01-30')
+  };
+  @Output() notifyDateChange = new EventEmitter<TimeRange>();
 
   constructor() {
   }
@@ -43,22 +47,22 @@ export class TimelineComponent {
     // Create a Timeline
     var timeline = new vis.Timeline(container, items, options);
 
-    timeline.addCustomTime(this.start, 'start'); 
-    timeline.addCustomTime(this.end, 'end'); 
+    timeline.addCustomTime(this.range.start, 'start'); 
+    timeline.addCustomTime(this.range.end, 'end'); 
 
-    timeline.on('timechange', function(properties: any) {
+    timeline.on('timechanged', (properties: any) => {
       if(properties.id === 'start') {
-        this.start = properties.time.toISOString();
+        this.range.start = properties.time;
         console.log('start:' + properties.time.toISOString()); 
-
+        this.notifyDateChange.emit(this.range); 
       } else if (properties.id === 'end' {
-        this.end = properties.time.toISOString();
+        this.range.end = properties.time;
         console.log('end:' + properties.time.toISOString()); 
+        this.notifyDateChange.emit(this.range); 
       } else {
         //error
         console.error(properties); 
       }
-      console.log(properties); 
     }); 
   }
 } 
