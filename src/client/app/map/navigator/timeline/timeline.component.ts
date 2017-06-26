@@ -1,4 +1,6 @@
 import { Component } from '@angular/core'; 
+import { Output } from '@angular/core'; 
+import { EventEmitter } from '@angular/core'; 
 
 //vis is bundled into the global namespace
 declare var vis: any; 
@@ -11,10 +13,11 @@ declare var vis: any;
 }) 
 
 export class TimelineComponent {
+  start = new Date('2017-01-12');
+  end = new Date('2017-01-30');
+  @Output notifyDateChange: EventEmitter<string>;
 
   constructor() {
-    this.start = new Date('2017-01-12');
-    this.end = new Date('2017-01-30');
   }
 
   ngAfterViewInit() {
@@ -43,10 +46,11 @@ export class TimelineComponent {
     timeline.addCustomTime(this.start, 'start'); 
     timeline.addCustomTime(this.end, 'end'); 
 
-    timeline.on('timechange', function(properties) {
-      if (properties.id === 'start') {
+    timeline.on('timechange', function(properties: any) {
+      if(properties.id === 'start') {
         this.start = properties.time.toISOString();
         console.log('start:' + properties.time.toISOString()); 
+
       } else if (properties.id === 'end' {
         this.end = properties.time.toISOString();
         console.log('end:' + properties.time.toISOString()); 

@@ -36,6 +36,10 @@ export class NavigatorComponent {
   constructor() {
   }
 
+  onNotify(message:string):void {
+    alert(message); 
+  }
+
   ngOnChanges() {
     console.log("In Navigator: ");
     if(this.navigatorData) {
