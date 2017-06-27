@@ -52,17 +52,12 @@ export class NavigatorComponent {
       let geoJson = topojson.feature(result, result.objects.output);
       for (let feature of geoJson.features) {
         //add a marker popup for each one
-        //feature.properties.popupContent = "hello world";
         console.log(feature);
         L.geoJSON(feature).bindPopup((layer) => {
           console.log(layer);
           return JSON.stringify(layer.feature.properties);
         }).addTo(this.map);
       }
-
-      //console.log(geoJson);
-      //this.markerLayer = L.geoJSON(geoJson).addTo(this.map);
-      //L.geoJSON(geoJson).addTo(this.map);
     }
   }
 }

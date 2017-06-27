@@ -14,7 +14,8 @@ import { TimeRange } from './timeline/timeline.module';
 export class MapComponent implements OnInit {
   map = "";
   reports: any;
-  defaultRange = { start: new Date('2017-01-13T01:00:00-0000'), end: new Date('2017-01-14T01:00:00-0500')};
+  defaultRange = { start: new Date('2017-01-13T07:00:00+0700'), end: new Date('2017-01-14T11:10:00+0700')};
+
 
   constructor(private mapService: MapService) {
     this.map = "the map goes here";

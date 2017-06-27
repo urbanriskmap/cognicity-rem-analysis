@@ -21,7 +21,8 @@ export class MapService {
     let endIsoString = moment(range.end).format();
     return this.http.get('http://localhost:8001/reports/archive?' +
       'start='+ startIsoString +
-      '&end=' + endIsoString
+      '&end=' + endIsoString +
+      '&format=json&geoformat=topojson'
       ,
       {
       headers: headers
