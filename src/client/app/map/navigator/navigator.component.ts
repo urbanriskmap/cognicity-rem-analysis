@@ -13,6 +13,7 @@ import * as L from 'leaflet';
 
 export class NavigatorComponent {
   private map: any;
+  private makerLayer: any;
 
   ngAfterContentInit() {
     let map = L.map("mapContainer", {
@@ -29,6 +30,7 @@ export class NavigatorComponent {
       ]
     });
     this.map = map;
+    this.markerLayer = L.geoJSON().addTo(this.map);
   }
 
   @Input() navigatorData:any;
@@ -37,21 +39,30 @@ export class NavigatorComponent {
   }
 
   onNotify(message:string):void {
-    alert(message); 
+    alert(message);
   }
 
   ngOnChanges() {
     console.log("In Navigator: ");
     if(this.navigatorData) {
-      console.log(this.navigatorData);
-      console.log(topojson);
+      //clear the map:
+      this.map.removeLayer(this.markerLayer);
+
       let result = this.navigatorData.result;
       let geoJson = topojson.feature(result, result.objects.output);
-      console.log("map");
-      console.log(this.map);
-      L.geoJSON(geoJson).addTo(this.map);
-      console.log(geoJson);
+      for (let feature of geoJson.features) {
+        //add a marker popup for each one
+        //feature.properties.popupContent = "hello world";
+        console.log(feature);
+        L.geoJSON(feature).bindPopup((layer) => {
+          console.log(layer);
+          return JSON.stringify(layer.feature.properties);
+        }).addTo(this.map);
+      }
+
+      //console.log(geoJson);
+      //this.markerLayer = L.geoJSON(geoJson).addTo(this.map);
+      //L.geoJSON(geoJson).addTo(this.map);
     }
   }
-
 }

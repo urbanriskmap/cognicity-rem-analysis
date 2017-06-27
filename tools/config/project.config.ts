@@ -8,13 +8,13 @@ import { ExtendPackages } from './seed.config.interfaces';
  * below.
  */
 export class ProjectConfig extends SeedConfig {
+  DATA_SERVER = 'http://localhost:8001';
 
   PROJECT_TASKS_DIR = join(process.cwd(), this.TOOLS_DIR, 'tasks', 'project');
 
   constructor() {
     super();
     this.APP_TITLE = 'Cognicity REM Analytics';
-    this.DATA_SERVER = 'http://localhost:8001';
     // this.GOOGLE_ANALYTICS_ID = 'Your site's ID';
 
     /* Enable typeless compiler runs (faster) between typed compiler runs. */
@@ -67,7 +67,13 @@ export class ProjectConfig extends SeedConfig {
     }, {
       name: 'topojson',
       path: 'node_modules/topojson/dist/topojson.js'
-    }];
+    }, {
+      name: 'moment',
+      path: 'node_modules/moment/moment.js'
+    }
+    
+    
+    ];
 
     
     this.addPackagesBundles(additionalPackages); 

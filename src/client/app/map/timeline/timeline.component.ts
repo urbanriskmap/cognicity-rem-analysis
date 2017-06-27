@@ -1,21 +1,20 @@
-import { Component } from '@angular/core'; 
-import { Output } from '@angular/core'; 
-import { EventEmitter } from '@angular/core'; 
+import { Component } from '@angular/core';
+import { Output } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 import { TimeRange } from './timeline.module';
 
 //vis is bundled into the global namespace
-declare var vis: any; 
+declare var vis: any;
 
 @Component({
   moduleId: module.id,
   selector: 'sd-timeline',
   templateUrl: 'timeline.component.html',
   styleUrls: ['timeline.component.css']
-}) 
-
+})
 
 export class TimelineComponent {
-  range = { 
+  range = {
     start: new Date('2017-01-12'),
     end: new Date('2017-01-30')
   };
@@ -25,8 +24,8 @@ export class TimelineComponent {
   }
 
   ngAfterViewInit() {
-    //TODO fix this! should not be using document.get ... 
-    let container = document.getElementById('vis-timeline'); 
+    //TODO fix this! should not be using document.get ...
+    let container = document.getElementById('vis-timeline');
 
     // Create a DataSet (allows two way data-binding)
     var items = new vis.DataSet([
@@ -40,29 +39,29 @@ export class TimelineComponent {
 
     // Configuration for the Timeline
     var options = {
-      width: "100%", 
+      width: "100%",
       showCurrentTime: true,
     };
 
     // Create a Timeline
     var timeline = new vis.Timeline(container, items, options);
 
-    timeline.addCustomTime(this.range.start, 'start'); 
-    timeline.addCustomTime(this.range.end, 'end'); 
+    timeline.addCustomTime(this.range.start, 'start');
+    timeline.addCustomTime(this.range.end, 'end');
 
     timeline.on('timechanged', (properties: any) => {
       if(properties.id === 'start') {
         this.range.start = properties.time;
-        console.log('start:' + properties.time.toISOString()); 
-        this.notifyDateChange.emit(this.range); 
-      } else if (properties.id === 'end' {
+        console.log('start:' + properties.time.toISOString());
+        this.notifyDateChange.emit(this.range);
+      } else if (properties.id === 'end') {
         this.range.end = properties.time;
-        console.log('end:' + properties.time.toISOString()); 
-        this.notifyDateChange.emit(this.range); 
+        console.log('end:' + properties.time.toISOString());
+        this.notifyDateChange.emit(this.range);
       } else {
         //error
-        console.error(properties); 
+        console.error(properties);
       }
-    }); 
+    });
   }
-} 
+}

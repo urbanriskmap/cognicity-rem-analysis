@@ -1,26 +1,33 @@
-import { Injectable } from '@angular/core'; 
-import { Http, Response, Headers } from '@angular/http'; 
+import { Injectable } from '@angular/core';
+import { Http, Response, Headers } from '@angular/http';
 
-import { Observable } from 'rxjs/Rx'; 
-import { TimeRange }  from './timeline/timeline.module'; 
-import 'rxjs/add/operator/map'; 
+import { Observable } from 'rxjs/Rx';
+import { TimeRange }  from './timeline/timeline.module';
+import 'rxjs/add/operator/map';
+
+import * as moment from 'moment';
 
 @Injectable()
 export class MapService {
   constructor (
     private http: Http
-  ) {}; 
+  ) {};
 
-  allReportsBetweenDates(range: TimeRange) :void {
-    let headers = new Headers(); 
-    headers.append('Access-Control-Allow-Origin', 'localhost'); 
-    let startIsoString = range.start.toISOString(); 
-    let endIsoString = range.end.toISOString(); 
-    return this.http.get('http://localhost:8001/reports/archive?start=2017-01-13T01:00:00-0000&end=2017-01-14T01:00:00-0500', {
+  allReportsBetweenDates(range: TimeRange) {
+    let headers = new Headers();
+    headers.append('Access-Control-Allow-Origin', 'localhost');
+
+    let startIsoString = moment(range.start).format();
+    let endIsoString = moment(range.end).format();
+    return this.http.get('http://localhost:8001/reports/archive?' +
+      'start='+ startIsoString +
+      '&end=' + endIsoString
+      ,
+      {
       headers: headers
-    })
+      }
+    )
       .map((res:Response) => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'server error trying to get all reports')); 
+      .catch((error:any) => Observable.throw(error.json().error || 'server error trying to get all reports'));
   }
-
 }
