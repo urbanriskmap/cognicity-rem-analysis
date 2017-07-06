@@ -3,7 +3,7 @@
 </div>
 
 <div id="timeline-outerwrap">
-  <sd-timeline (notifyDateChange)="onDateChange($event)"></sd-timeline>
+  <sd-timeline [newDates]="newDates" (notifyDateChange)="onDateChange($event)"></sd-timeline>
 </div>
 <div id="map-outerwrap">
   <sd-navigator [navigatorData]="reports"></sd-navigator>

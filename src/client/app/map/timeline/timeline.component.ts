@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
-import { Output } from '@angular/core';
-import { EventEmitter } from '@angular/core';
+import { Output, Input } from '@angular/core';
+import { EventEmitter, ElementRef, ContentChildren } from '@angular/core';
 import { TimeRange } from './timeline.module';
+import * as noUiSlider from 'nouislider';
 
 //vis is bundled into the global namespace
 declare var vis: any;
+const STARTOFPERIOD = new Date('01-01-2017');
+const ENDOFPERIOD = new Date('03-01-2017');
+const ONEWEEKINMS = 1000*60*60*24*7;
 
 @Component({
   moduleId: module.id,
@@ -14,54 +18,49 @@ declare var vis: any;
 })
 
 export class TimelineComponent {
+  //current range on sliders
   range = {
-    start: new Date('2017-01-12'),
-    end: new Date('2017-01-30')
+    start: new Date('01-14-2017'),
+    end: new Date('01-19-2017')
   };
   @Output() notifyDateChange = new EventEmitter<TimeRange>();
+  @Input() newDates: any;
+  @ContentChildren('#date-slider') dateSlider:ElementRef;
+  dataSet: any;
+  timeline: any;
+  lastId = 10;
 
   constructor() {
   }
 
   ngAfterViewInit() {
-    //TODO fix this! should not be using document.get ...
-    let container = document.getElementById('vis-timeline');
+    this.notifyDateChange.emit(this.range);
 
-    // Create a DataSet (allows two way data-binding)
-    var items = new vis.DataSet([
-      {id: 1, content: 'item 1', start: '2017-01-20', type: 'point'},
-      {id: 2, content: 'item 2', start: '2017-01-14', type: 'point'},
-      {id: 3, content: 'item 3', start: '2017-01-18', type: 'point'},
-      {id: 4, content: 'item 4', start: '2017-01-16', end: '2014-04-19', type: 'point'},
-      {id: 5, content: 'item 5', start: '2017-01-25', type: 'point'},
-      {id: 6, content: 'item 6', start: '2017-01-27', type: 'point'}
-    ]);
+    let dateSlider = document.getElementById('date-slider');
 
-    // Configuration for the Timeline
-    var options = {
-      width: "100%",
-      showCurrentTime: true,
-    };
-
-    // Create a Timeline
-    var timeline = new vis.Timeline(container, items, options);
-
-    timeline.addCustomTime(this.range.start, 'start');
-    timeline.addCustomTime(this.range.end, 'end');
-
-    timeline.on('timechanged', (properties: any) => {
-      if(properties.id === 'start') {
-        this.range.start = properties.time;
-        console.log('start:' + properties.time.toISOString());
-        this.notifyDateChange.emit(this.range);
-      } else if (properties.id === 'end') {
-        this.range.end = properties.time;
-        console.log('end:' + properties.time.toISOString());
-        this.notifyDateChange.emit(this.range);
-      } else {
-        //error
-        console.error(properties);
-      }
+    //for time range slider:
+    noUiSlider.create(dateSlider, {
+      start: [this.range.start.getTime(), this.range.end.getTime()],
+      connect: true,
+      range: {
+        'min': STARTOFPERIOD.getTime(),
+        'max': ENDOFPERIOD.getTime()
+      },
+      limit: ONEWEEKINMS
     });
+
+    //happens when user moves either slider
+    dateSlider.noUiSlider.on('update', (values:any, handle:number) => {
+      if (handle === 0) {
+        this.range.start = new Date(parseInt(values[handle]));
+      } else if (handle === 1) {
+        this.range.end = new Date(parseInt(values[handle]));
+      }
+      //notify the map parent that the date has changed.
+      this.notifyDateChange.emit(this.range);
+      console.log(new Date(parseInt(values[handle])));
+    });
+
+
   }
 }

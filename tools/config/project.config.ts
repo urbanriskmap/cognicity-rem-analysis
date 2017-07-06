@@ -26,6 +26,7 @@ export class ProjectConfig extends SeedConfig {
       {src: 'leaflet/dist/leaflet.css', inject: true},
       {src: 'vis/dist/vis.js', inject: true},
       {src: 'vis/dist/vis.min.css', inject: true},
+      {src: 'nouislider/distribute/nouislider.min.css', inject: true}
       // {src: 'lodash/lodash.min.js', inject: 'libs'},
     ];
 
@@ -70,10 +71,10 @@ export class ProjectConfig extends SeedConfig {
     }, {
       name: 'moment',
       path: 'node_modules/moment/moment.js'
-    }
-    
-    
-    ];
+    }, {
+      name: 'nouislider',
+      path: 'node_modules/nouislider/distribute/nouislider.min.js'
+    }];
 
     
     this.addPackagesBundles(additionalPackages); 
