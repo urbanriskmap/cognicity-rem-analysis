@@ -30,7 +30,11 @@ export class NavigatorComponent {
       ]
     });
     this.map = map;
-    this.markerLayer = L.geoJSON().addTo(this.map);
+    this.markerLayer = L.geoJSON(null, {
+      onEachFeature: function(feature, layer) {
+        layer.bindPopup(JSON.stringify(feature.properties));
+      }
+    }).addTo(this.map);
   }
 
   @Input() navigatorData:any;
@@ -45,15 +49,13 @@ export class NavigatorComponent {
   ngOnChanges() {
     if(this.navigatorData) {
       //clear the map:
-      this.map.removeLayer(this.markerLayer);
+      this.markerLayer.clearLayers();
 
       let result = this.navigatorData.result;
       let geoJson = topojson.feature(result, result.objects.output);
       for (let feature of geoJson.features) {
         //add a marker popup for each one
-        L.geoJSON(feature).bindPopup((layer) => {
-          return JSON.stringify(layer.feature.properties);
-        }).addTo(this.map);
+        this.markerLayer.addData(feature);
       }
     }
   }

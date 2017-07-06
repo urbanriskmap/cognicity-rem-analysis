@@ -50,7 +50,7 @@ export class TimelineComponent {
     });
 
     //happens when user moves either slider
-    dateSlider.noUiSlider.on('update', (values:any, handle:number) => {
+    dateSlider.noUiSlider.on('end', (values:any, handle:number) => {
       if (handle === 0) {
         this.range.start = new Date(parseInt(values[handle]));
       } else if (handle === 1) {

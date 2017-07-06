@@ -14,8 +14,6 @@ export class MapComponent {
   map = "";
   reports: any;
   newDates: any;
-  defaultRange = { start: new Date('2017-01-13T07:00:00+0700'), end: new Date('2017-01-14T11:10:00+0700')};
-
 
   constructor(private mapService: MapService) {
     this.map = "the map goes here";
@@ -28,10 +26,8 @@ export class MapComponent {
         this.reports = reports;
         this.newDates = [];
         for (let each of reports.result.objects.output.geometries) {
-          console.log(each);
           this.newDates.push(each.properties.created_at);
         }
-        console.log(this.reports);
       },
       err => {
         console.log(err);
