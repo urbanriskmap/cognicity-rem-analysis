@@ -1,6 +1,10 @@
+<div id="reports-view">
+  <p>Reports: {{reports}}</p>
+</div>
+
 <div id="timeline-outerwrap">
-  <sd-timeline></sd-timeline>
+  <sd-timeline [newDates]="newDates" (notifyDateChange)="onDateChange($event)"></sd-timeline>
 </div>
 <div id="map-outerwrap">
-  <sd-navigator></sd-navigator>
+  <sd-navigator [navigatorData]="reports"></sd-navigator>
 </div>
