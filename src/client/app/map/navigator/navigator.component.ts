@@ -6,11 +6,10 @@ import * as L from 'leaflet';
 
 @Component({
   moduleId: module.id,
-  selector: 'sd-navigator',
+  selector: 'url-navigator',
   templateUrl: 'navigator.component.html',
   styleUrls: ['navigator.component.css']
 })
-
 export class NavigatorComponent implements AfterContentInit, OnChanges {
   @Input() navigatorData:any;
   private map: any;

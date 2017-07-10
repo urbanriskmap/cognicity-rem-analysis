@@ -11,7 +11,7 @@ const ONEWEEKINMS = 1000*60*60*24*7;
 
 @Component({
   moduleId: module.id,
-  selector: 'sd-timeline',
+  selector: 'url-timeline',
   templateUrl: 'timeline.component.html',
   styleUrls: ['timeline.component.css']
 })
