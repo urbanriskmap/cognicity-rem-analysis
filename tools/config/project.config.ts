@@ -8,12 +8,13 @@ import { ExtendPackages } from './seed.config.interfaces';
  * below.
  */
 export class ProjectConfig extends SeedConfig {
+  DATA_SERVER = 'http://localhost:8001';
 
   PROJECT_TASKS_DIR = join(process.cwd(), this.TOOLS_DIR, 'tasks', 'project');
 
   constructor() {
     super();
-    // this.APP_TITLE = 'Put name of your app here';
+    this.APP_TITLE = 'Cognicity REM Analytics';
     // this.GOOGLE_ANALYTICS_ID = 'Your site's ID';
 
     /* Enable typeless compiler runs (faster) between typed compiler runs. */
@@ -25,6 +26,7 @@ export class ProjectConfig extends SeedConfig {
       {src: 'leaflet/dist/leaflet.css', inject: true},
       {src: 'vis/dist/vis.js', inject: true},
       {src: 'vis/dist/vis.min.css', inject: true},
+      {src: 'nouislider/distribute/nouislider.min.css', inject: true}
       // {src: 'lodash/lodash.min.js', inject: 'libs'},
     ];
 
@@ -63,8 +65,18 @@ export class ProjectConfig extends SeedConfig {
     let additionalPackages: ExtendPackages[] = [{
       name: 'leaflet',
       path: 'node_modules/leaflet/dist/leaflet.js'
+    }, {
+      name: 'topojson',
+      path: 'node_modules/topojson/dist/topojson.js'
+    }, {
+      name: 'moment',
+      path: 'node_modules/moment/moment.js'
+    }, {
+      name: 'nouislider',
+      path: 'node_modules/nouislider/distribute/nouislider.min.js'
     }];
 
+    
     this.addPackagesBundles(additionalPackages); 
   }
 
