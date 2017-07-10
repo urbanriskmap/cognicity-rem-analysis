@@ -11,7 +11,7 @@ import * as moment from 'moment';
 export class MapService {
   constructor (
     private http: Http
-  ) {};
+  ) {}
 
   allReportsBetweenDates(range: TimeRange) {
     let headers = new Headers();
@@ -19,7 +19,7 @@ export class MapService {
 
     let startIsoString = moment(range.start).format();
     let endIsoString = moment(range.end).format();
-    console.log("start ISO: " + startIsoString);
+    console.log('start ISO: ' + startIsoString);
     return this.http.get('http://localhost:8001/reports/archive?' +
       'start='+ startIsoString +
       '&end=' + endIsoString +

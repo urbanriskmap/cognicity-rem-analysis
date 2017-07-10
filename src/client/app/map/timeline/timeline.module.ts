@@ -1,4 +1,4 @@
 export interface TimeRange {
   start: Date;
-  end: Date; 
+  end: Date;
 }

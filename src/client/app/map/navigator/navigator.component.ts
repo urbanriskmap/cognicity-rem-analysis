@@ -11,12 +11,13 @@ import * as L from 'leaflet';
   styleUrls: ['navigator.component.css']
 })
 
-export class NavigatorComponent {
+export class NavigatorComponent implements AfterContentInit, OnChanges {
+  @Input() navigatorData:any;
   private map: any;
-  private makerLayer: any;
+  private markerLayer: any;
 
   ngAfterContentInit() {
-    let map = L.map("mapContainer", {
+    let map = L.map('mapContainer', {
       zoomControl: false,
       center: L.latLng(-6.1751, 106.8650),
       zoom: 12,
@@ -31,15 +32,10 @@ export class NavigatorComponent {
     });
     this.map = map;
     this.markerLayer = L.geoJSON(null, {
-      onEachFeature: function(feature, layer) {
+      onEachFeature: function(feature:any, layer:any) {
         layer.bindPopup(JSON.stringify(feature.properties));
       }
     }).addTo(this.map);
-  }
-
-  @Input() navigatorData:any;
-
-  constructor() {
   }
 
   onNotify(message:string):void {

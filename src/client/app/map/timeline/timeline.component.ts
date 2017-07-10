@@ -5,7 +5,6 @@ import { TimeRange } from './timeline.module';
 import * as noUiSlider from 'nouislider';
 
 //vis is bundled into the global namespace
-declare var vis: any;
 const STARTOFPERIOD = new Date('01-01-2017');
 const ENDOFPERIOD = new Date('03-01-2017');
 const ONEWEEKINMS = 1000*60*60*24*7;
@@ -17,7 +16,7 @@ const ONEWEEKINMS = 1000*60*60*24*7;
   styleUrls: ['timeline.component.css']
 })
 
-export class TimelineComponent {
+export class TimelineComponent implements AfterViewInit {
   //current range on sliders
   range = {
     start: new Date('01-14-2017'),
@@ -30,13 +29,10 @@ export class TimelineComponent {
   timeline: any;
   lastId = 10;
 
-  constructor() {
-  }
-
   ngAfterViewInit() {
     this.notifyDateChange.emit(this.range);
 
-    let dateSlider = document.getElementById('date-slider');
+    let dateSlider = <any>document.getElementById('date-slider');
 
     //for time range slider:
     noUiSlider.create(dateSlider, {
@@ -46,7 +42,6 @@ export class TimelineComponent {
         'min': STARTOFPERIOD.getTime(),
         'max': ENDOFPERIOD.getTime()
       },
-      limit: ONEWEEKINMS
     });
 
     //happens when user moves either slider

@@ -11,12 +11,10 @@ import { TimeRange } from './timeline/timeline.module';
   providers: [MapService]
 })
 export class MapComponent {
-  map = "";
   reports: any;
   newDates: any;
 
   constructor(private mapService: MapService) {
-    this.map = "the map goes here";
   }
 
   getData(range: TimeRange): void {

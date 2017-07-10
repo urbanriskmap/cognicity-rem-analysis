@@ -24,8 +24,6 @@ export class ProjectConfig extends SeedConfig {
     this.NPM_DEPENDENCIES = [
       ...this.NPM_DEPENDENCIES,
       {src: 'leaflet/dist/leaflet.css', inject: true},
-      {src: 'vis/dist/vis.js', inject: true},
-      {src: 'vis/dist/vis.min.css', inject: true},
       {src: 'nouislider/distribute/nouislider.min.css', inject: true}
       // {src: 'lodash/lodash.min.js', inject: 'libs'},
     ];
@@ -76,8 +74,6 @@ export class ProjectConfig extends SeedConfig {
       path: 'node_modules/nouislider/distribute/nouislider.min.js'
     }];
 
-    
-    this.addPackagesBundles(additionalPackages); 
+    this.addPackagesBundles(additionalPackages);
   }
-
 }
