@@ -5,7 +5,11 @@ import { Observable } from 'rxjs/Rx';
 import { TimeRange }  from './timeline/timeline.module';
 import 'rxjs/add/operator/map';
 
-import * as moment from 'moment';
+
+//moment is bundled into the window namespace
+//because it doesn't play well with typescript/es6
+//see here: https://stackoverflow.com/questions/35166168/how-to-use-moment-js-library-in-angular-2-typescript-app
+declare var moment:any;
 
 @Injectable()
 export class MapService {
@@ -19,7 +23,6 @@ export class MapService {
 
     let startIsoString = moment(range.start).format();
     let endIsoString = moment(range.end).format();
-    console.log('start ISO: ' + startIsoString);
     return this.http.get('http://localhost:8001/reports/archive?' +
       'start='+ startIsoString +
       '&end=' + endIsoString +
