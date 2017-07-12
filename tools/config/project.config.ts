@@ -24,7 +24,8 @@ export class ProjectConfig extends SeedConfig {
     this.NPM_DEPENDENCIES = [
       ...this.NPM_DEPENDENCIES,
       {src: 'leaflet/dist/leaflet.css', inject: true},
-      {src: 'nouislider/distribute/nouislider.min.css', inject: true}
+      {src: 'nouislider/distribute/nouislider.min.css', inject: true},
+      {src: 'moment/moment.js', inject: 'libs'}
       // {src: 'lodash/lodash.min.js', inject: 'libs'},
     ];
 
@@ -66,9 +67,6 @@ export class ProjectConfig extends SeedConfig {
     }, {
       name: 'topojson',
       path: 'node_modules/topojson/dist/topojson.js'
-    }, {
-      name: 'moment',
-      path: 'node_modules/moment/moment.js'
     }, {
       name: 'nouislider',
       path: 'node_modules/nouislider/distribute/nouislider.min.js'

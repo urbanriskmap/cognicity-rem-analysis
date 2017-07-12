@@ -42,6 +42,19 @@ module.exports = function (config) {
       { pattern: 'node_modules/rxjs/**/*.js', included: false, watched: false },
       { pattern: 'node_modules/rxjs/**/*.js.map', included: false, watched: false },
 
+      //leaflet
+      { pattern: 'node_modules/leaflet/**/*.js', included: false, watched: false },
+
+      //topojson
+      { pattern: 'node_modules/topojson/**/*.js', included: false, watched: false },
+
+      //moment
+      { pattern: 'node_modules/moment/*.js', included: false, watched: false },
+
+      //for nouislider
+      { pattern: 'node_modules/nouislider/**/*.js', included: false, watched: false },
+
+
       // paths loaded via module imports
       // Angular itself
       { pattern: 'node_modules/@angular/**/*.js', included: false, watched: true },

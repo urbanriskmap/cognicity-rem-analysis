@@ -5,7 +5,7 @@ import { TimeRange } from './timeline/timeline.module';
 
 @Component({
   moduleId: module.id,
-  selector: 'sd-map',
+  selector: 'url-map',
   templateUrl: 'map.component.html',
   styleUrls: ['map.component.css'],
   providers: [MapService]
