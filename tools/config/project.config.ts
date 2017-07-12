@@ -42,6 +42,10 @@ export class ProjectConfig extends SeedConfig {
 
     this.ROLLUP_NAMED_EXPORTS = [
       ...this.ROLLUP_NAMED_EXPORTS,
+      {'node_modules/leaflet/dist/leaflet-src.js': [
+        'latLng', 'map', 'tileLayer', 'geoJSON'
+      ]},
+      {'node_modules/nouislider/distribute/nouislider.js': ['create']}
       //{'node_modules/immutable/dist/immutable.js': [ 'Map' ]},
     ];
 
