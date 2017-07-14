@@ -1,10 +1,9 @@
-<div id="reports-view">
-  <p>Reports: {{reports}}</p>
-</div>
-
-<div id="timeline-outerwrap">
-  <url-timeline [newDates]="newDates" (notifyDateChange)="onDateChange($event)"></url-timeline>
-</div>
 <div id="map-outerwrap">
-  <url-navigator [navigatorData]="reports"></url-navigator>
+  <url-range-query></url-range-query>
+  <div id="timeline-outerwrap">
+    <url-timeline [newDates]="newDates" (notifyDateChange)="onDateChange($event)"></url-timeline>
+  </div>
+  <div id="navigator">
+    <url-navigator [navigatorData]="reports"></url-navigator>
+  </div>
 </div>
