@@ -1,6 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { Output, Input } from '@angular/core';
 import { EventEmitter, ElementRef, ContentChildren } from '@angular/core';
+import { RangeQuery } from './rangequery.module';
 
 declare var moment:any;
 
@@ -18,4 +19,16 @@ const DATE_DISPLAY_STRING = 'MMMM Do YYYY, h:mm:ss a';
 })
 
 export class RangeQueryComponent {
+  @Output() notifySubmitRangeQuery = new EventEmitter<RangeQuery>();
+  private _querybox: string;
+
+  set querybox(value: string) {
+    this._querybox = value;
+  }
+
+  public submitRangeQuery(event: any) {
+    if (this._querybox) {
+      this.notifySubmitRangeQuery.emit(this._querybox);
+    }
+  }
 }

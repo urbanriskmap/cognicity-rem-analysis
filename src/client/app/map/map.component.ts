@@ -39,4 +39,8 @@ export class MapComponent {
     console.log(range);
     this.getData(range);
   }
+
+  public rangeQuerySubmitted(text: string) {
+    console.log('range query on map parent');
+  }
 }

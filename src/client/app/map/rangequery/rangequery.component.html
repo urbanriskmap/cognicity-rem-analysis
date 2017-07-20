@@ -1,2 +1,5 @@
-<textarea id="querybox" rows="3">
+<span id="output">{{queryboxOut}}</span>
+<textarea (input)="querybox = $event.target.value" id="querybox" rows="3">
 </textarea>
+<button id="submit" (click)="submitRangeQuery($event)">
+</button>
