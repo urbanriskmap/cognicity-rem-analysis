@@ -13,6 +13,7 @@ import { TimeRange } from './timeline/timeline.module';
 export class MapComponent {
   reports: any;
   newDates: any;
+  lastSeenRange: TimeRange;
 
   constructor(private mapService: MapService) {
   }
@@ -35,12 +36,25 @@ export class MapComponent {
   onDateChange(range: TimeRange) :void {
     //the user has dragged the start or end bar, now need to ask the server
     //for that slice of time
+    this.lastSeenRange = range;
     console.log('Got new date range');
     console.log(range);
     this.getData(range);
   }
 
-  public rangeQuerySubmitted(text: string) {
+  public rangeQuerySubmitted(inputQuery: string) {
     console.log('range query on map parent');
+    this.mapService.executeTextQuery({range: this.lastSeenRange, text:inputQuery} ).subscribe(
+      reports => {
+        console.log('range query submitted');
+        this.reports = reports;
+        this.newDates = [];
+        for (let each of reports.result.objects.output.geometries) {
+          this.newDates.push(each.properties.created_at);
+        }
+      },
+      err => {
+        console.log(err);
+      });
   }
 }

@@ -19,16 +19,18 @@ const DATE_DISPLAY_STRING = 'MMMM Do YYYY, h:mm:ss a';
 })
 
 export class RangeQueryComponent {
-  @Output() notifySubmitRangeQuery = new EventEmitter<RangeQuery>();
+  @Output() notifySubmitRangeQuery = new EventEmitter<string>();
   private _querybox: string;
+
+  constructor() {
+    this._querybox = '';
+  }
 
   set querybox(value: string) {
     this._querybox = value;
   }
 
   public submitRangeQuery(event: any) {
-    if (this._querybox) {
-      this.notifySubmitRangeQuery.emit(this._querybox);
-    }
+    this.notifySubmitRangeQuery.emit(this._querybox);
   }
 }

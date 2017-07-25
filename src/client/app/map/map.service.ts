@@ -29,11 +29,21 @@ export class MapService {
 
     let params: URLSearchParams = new URLSearchParams();
     params.set('start', moment(query.range.start).format());
-    params.set('end', moment(query.range.start).format());
+    params.set('end', moment(query.range.end).format());
+    console.log('preparedSQL');
+    console.log(query.text);
+    params.set('preparedSQL', query.text);
     params.set('format', 'json');
     params.set('geoformat', 'topojson');
-    params.set('query', query);
-    return this.http.get('');
+    return this.http.get( TEXT_QUERY_END_POINT,
+      {
+        search: params,
+        headers: headers
+      }
+    )
+      .map((res:Response) => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || 'server error trying to get all reports'));
+
   }
 
   allReportsBetweenDates(range: TimeRange) {
