@@ -1,0 +1,9 @@
+#rangequery-outerwrap {
+  width: 100%;
+  display: flex;
+  padding: 5px;
+}
+
+#rangequerybox {
+  width: 100%;
+}

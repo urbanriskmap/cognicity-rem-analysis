@@ -1,0 +1,5 @@
+<div id='rangequery-outerwrap'>
+  <span id='rangequery-explanation'>Additional SQL query within timerange:</span>
+  <textarea id="rangequerybox" rows="3" (input)="querybox = $event.target.value" ></textarea>
+  <button id="submit" (click)="submitRangeQuery($event)"></button>
+</div>

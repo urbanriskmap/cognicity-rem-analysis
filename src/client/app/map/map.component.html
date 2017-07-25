@@ -1,4 +1,5 @@
 <div id="map-outerwrap">
+  <url-range-query (notifySubmitRangeQuery)="rangeQuerySubmitted($event)"></url-range-query>
   <div id="timeline-outerwrap">
     <url-timeline [newDates]="newDates" (notifyDateChange)="onDateChange($event)"></url-timeline>
   </div>
