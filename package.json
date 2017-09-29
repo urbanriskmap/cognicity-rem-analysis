@@ -149,6 +149,7 @@
     "@types/leaflet": "^1.0.65",
     "@types/nouislider": "^9.0.0",
     "@types/topojson": "^3.0.2",
+    "angular": "^1.6.6",
     "core-js": "^2.4.1",
     "intl": "^1.2.5",
     "leaflet": "^1.0.3",

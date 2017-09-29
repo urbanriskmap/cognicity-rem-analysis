@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { URLSearchParams, Http, Response, Headers } from '@angular/http';
+import { URLSearchParams, Http, Response, Headers, QueryEncoder } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx';
 import { TimeRange }  from './timeline/timeline.module';
@@ -16,6 +16,11 @@ const TEXT_QUERY_END_POINT = ARCHIVE_END_POINT + '/textquery';
 //see here: https://stackoverflow.com/questions/35166168/how-to-use-moment-js-library-in-angular-2-typescript-app
 declare var moment:any;
 
+//class TimeQueryEncoder extends QueryEncoder {
+//  encodeValue(v: '+'): '%2B' {
+//    return timeEncodingFunction(v);
+//  }
+//}
 
 @Injectable()
 export class MapService {
@@ -53,14 +58,16 @@ export class MapService {
     let startIsoString = moment(range.start).format();
     let endIsoString = moment(range.end).format();
 
+   //let params: URLSearchParams = new URLSearchParams(new TimeQueryEncoder());
     let params: URLSearchParams = new URLSearchParams();
     params.set('start', startIsoString);
     params.set('end', endIsoString);
     params.set('format', 'json');
     params.set('geoformat', 'topojson');
-    return this.http.get( ARCHIVE_END_POINT,
+    console.log(params.toString());
+    let hack = params.toString().replace(/\+/g, '%2B')
+    return this.http.get( ARCHIVE_END_POINT+'?'+ hack,
       {
-        search: params,
         headers: headers
       }
     )
