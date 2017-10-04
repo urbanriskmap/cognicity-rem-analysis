@@ -16,11 +16,17 @@ const TEXT_QUERY_END_POINT = ARCHIVE_END_POINT + '/textquery';
 //see here: https://stackoverflow.com/questions/35166168/how-to-use-moment-js-library-in-angular-2-typescript-app
 declare var moment:any;
 
-//class TimeQueryEncoder extends QueryEncoder {
-//  encodeValue(v: '+'): '%2B' {
-//    return timeEncodingFunction(v);
-//  }
-//}
+// encode URI format properly when time zones are UTC+X:XX
+class TimeQueryEncoder extends QueryEncoder {
+    encodeKey(k: string): string {
+        k = super.encodeKey(k);
+       	return k.replace(/\+/gi, '%2B');
+    }
+    encodeValue(v: string): string {
+        v = super.encodeKey(v);
+       	return v.replace(/\+/gi, '%2B');
+    }
+}						}
 
 @Injectable()
 export class MapService {
@@ -58,16 +64,15 @@ export class MapService {
     let startIsoString = moment(range.start).format();
     let endIsoString = moment(range.end).format();
 
-   //let params: URLSearchParams = new URLSearchParams(new TimeQueryEncoder());
-    let params: URLSearchParams = new URLSearchParams();
+    let params: URLSearchParams = new URLSearchParams('', new TimeQueryEncoder());
     params.set('start', startIsoString);
     params.set('end', endIsoString);
     params.set('format', 'json');
     params.set('geoformat', 'topojson');
     console.log(params.toString());
-    let hack = params.toString().replace(/\+/g, '%2B')
-    return this.http.get( ARCHIVE_END_POINT+'?'+ hack,
+    return this.http.get( ARCHIVE_END_POINT+'?',
       {
+    	search: params,
         headers: headers
       }
     )
