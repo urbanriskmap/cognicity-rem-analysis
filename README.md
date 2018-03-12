@@ -1,3 +1,6 @@
+# DEPRECATED
+This was a prototype. See new complete version at https://github.com/urbanriskmap/cognicity-analytics
+
 Single page webapp for data analysis on data gathered
 by cognicity. Uses the [angular seed](https://github.com/mgechev/angular-seed) project as a starter.
 
