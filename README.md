@@ -1,4 +1,5 @@
-# DEPRECATED
+# CogniCity REM Analysis
+## DEPRECATED
 This was a prototype. See new complete version at https://github.com/urbanriskmap/cognicity-analytics
 
 Single page webapp for data analysis on data gathered
