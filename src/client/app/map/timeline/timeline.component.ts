@@ -7,8 +7,8 @@ import * as noUiSlider from 'nouislider';
 declare var moment:any;
 
 //vis is bundled into the global namespace
-const STARTOFPERIOD = new Date('01-01-2017');
-const ENDOFPERIOD = new Date('03-01-2017');
+const STARTOFPERIOD = new Date('11-01-2018');
+const ENDOFPERIOD = new Date('12-01-2018');
 const ONEWEEKINMS = 1000*60*60*24*7;
 const DATE_DISPLAY_STRING = 'MMMM Do YYYY, h:mm:ss a';
 
@@ -22,8 +22,8 @@ const DATE_DISPLAY_STRING = 'MMMM Do YYYY, h:mm:ss a';
 export class TimelineComponent implements AfterViewInit {
   //current range on sliders when dragging stops
   range = {
-    start: new Date('01-14-2017'),
-    end: new Date('01-19-2017')
+    start: new Date('11-20-2018'),
+    end: new Date('11-27-2018')
   };
 
   //date to display as dragging is happening

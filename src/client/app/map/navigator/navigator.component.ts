@@ -18,7 +18,8 @@ export class NavigatorComponent implements AfterContentInit, OnChanges {
   ngAfterContentInit() {
     let map = L.map('mapContainer', {
       zoomControl: false,
-      center: L.latLng(-6.1751, 106.8650),
+      // TODO pull this into config Chennai
+      center: L.latLng( 13.048753, 80.263273),
       zoom: 12,
       minZoom: 4,
       maxZoom: 19,

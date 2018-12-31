@@ -5,7 +5,8 @@ import { Observable } from 'rxjs/Rx';
 import { TimeRange }  from './timeline/timeline.module';
 import 'rxjs/add/operator/map';
 
-const BASE_URL = 'http://localhost:8001';
+//  TODO pull this into config
+const BASE_URL = 'http://data.riskmap.in';
 const ARCHIVE_END_POINT = BASE_URL + '/reports/archive';
 
 //TODO: how do we design this endpoint better?
@@ -20,13 +21,13 @@ declare var moment:any;
 class TimeQueryEncoder extends QueryEncoder {
     encodeKey(k: string): string {
         k = super.encodeKey(k);
-       	return k.replace(/\+/gi, '%2B');
+        return k.replace(/\+/gi, '%2B');
     }
     encodeValue(v: string): string {
         v = super.encodeKey(v);
-       	return v.replace(/\+/gi, '%2B');
+        return v.replace(/\+/gi, '%2B');
     }
-}						}
+}
 
 @Injectable()
 export class MapService {
@@ -44,7 +45,6 @@ export class MapService {
     console.log('preparedSQL');
     console.log(query.text);
     params.set('preparedSQL', query.text);
-    params.set('format', 'json');
     params.set('geoformat', 'topojson');
     return this.http.get( TEXT_QUERY_END_POINT,
       {
@@ -59,7 +59,7 @@ export class MapService {
 
   allReportsBetweenDates(range: TimeRange) {
     let headers = new Headers();
-    headers.append('Access-Control-Allow-Origin', 'localhost');
+    headers.append('Access-Control-Allow-Origin', '*');
 
     let startIsoString = moment(range.start).format();
     let endIsoString = moment(range.end).format();
@@ -67,12 +67,11 @@ export class MapService {
     let params: URLSearchParams = new URLSearchParams('', new TimeQueryEncoder());
     params.set('start', startIsoString);
     params.set('end', endIsoString);
-    params.set('format', 'json');
     params.set('geoformat', 'topojson');
     console.log(params.toString());
     return this.http.get( ARCHIVE_END_POINT+'?',
       {
-    	search: params,
+        search: params,
         headers: headers
       }
     )
