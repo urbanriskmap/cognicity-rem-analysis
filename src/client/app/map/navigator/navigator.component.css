@@ -10,12 +10,12 @@
 }
 
 #daySlider {
-	position: absolute; 
-	width: 150px; 
-	height: 40px; 
-	top: 20px; 
-	left: 20px; 
-	z-index: 2000; 
+  position: absolute; 
+  width: 150px; 
+  height: 40px; 
+  top: 20px; 
+  left: 20px; 
+  z-index: 2000; 
 }
 
 h2 {
@@ -25,3 +25,8 @@ h2 {
   margin-bottom: 0;
   margin-top: 0.83em;
 }
+
+img {
+  border-color: red;
+}
+

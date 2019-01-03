@@ -14,7 +14,7 @@ export class ProjectConfig extends SeedConfig {
 
   constructor() {
     super();
-    this.APP_TITLE = 'Cognicity REM Analytics';
+    this.APP_TITLE = 'REACT';
     // this.GOOGLE_ANALYTICS_ID = 'Your site's ID';
 
     /* Enable typeless compiler runs (faster) between typed compiler runs. */
@@ -25,7 +25,8 @@ export class ProjectConfig extends SeedConfig {
       ...this.NPM_DEPENDENCIES,
       {src: 'leaflet/dist/leaflet.css', inject: true},
       {src: 'nouislider/distribute/nouislider.min.css', inject: true},
-      {src: 'moment/moment.js', inject: 'libs'}
+      {src: 'moment/moment.js', inject: 'libs'},
+      {src: 'mapbox-gl/dist/mapbox-gl.css', inject: true}
       // {src: 'lodash/lodash.min.js', inject: 'libs'},
     ];
 
@@ -74,6 +75,9 @@ export class ProjectConfig extends SeedConfig {
     }, {
       name: 'nouislider',
       path: 'node_modules/nouislider/distribute/nouislider.min.js'
+    },{
+      name: 'mapbox-gl',
+      path: 'node_modules/mapbox-gl/dist/mapbox-gl.js'
     }];
 
     this.addPackagesBundles(additionalPackages);
