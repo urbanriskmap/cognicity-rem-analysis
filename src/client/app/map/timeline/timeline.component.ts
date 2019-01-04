@@ -22,11 +22,11 @@ const DATE_DISPLAY_STRING = 'MMMM Do YYYY, h:mm:ss a';
 export class TimelineComponent implements AfterViewInit {
   //current range on sliders when dragging stops
   range = {
-    start: new Date('11-20-2018'),
-    end: new Date('11-27-2018')
+    start: new Date('11-21-2018'),
+    end: new Date('11-27-2018'),
   };
 
-  //date to display as dragging is happening
+  // date to display as dragging is happening
   displayRange = {
     start: '',
     end: '',
@@ -37,7 +37,9 @@ export class TimelineComponent implements AfterViewInit {
   @ContentChildren('#date-slider') dateSlider:ElementRef;
   dataSet: any;
   timeline: any;
+  animationId: number;
   lastId = 10;
+  interval = 1000;
 
   sendNewTimelineRange( values:any, handle:number) {
     if (handle === 0) {
@@ -83,5 +85,24 @@ export class TimelineComponent implements AfterViewInit {
     dateSlider.noUiSlider.on('update', (values:any, handle:number) => {
       this.updateDisplayDates(values, handle);
     });
+  }
+
+  startAnimation() {
+    console.log(this.notifyDateChange);
+    this.animationId = window.setInterval(() => {
+      let newRange = {
+        start: this.range.start,
+        end: moment(this.range.start).add(1, 'hours').toDate()
+      };
+      this.range.start = newRange.end;
+      console.log(this.notifyDateChange);
+      this.notifyDateChange.emit(newRange);
+    }, this.interval);
+  }
+
+  stopAnimation() {
+    if (this.animationId ) {
+      clearInterval(this.animationId);
+    }
   }
 }

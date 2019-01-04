@@ -3,8 +3,8 @@ import { Input } from '@angular/core';
 import { AfterContentInit, OnChanges } from '@angular/core';
 import { AsyncSubject } from 'rxjs/Rx';
 import * as topojson from 'topojson';
-// import * as L from 'leaflet';
 import * as mapboxgl from 'mapbox-gl';
+// import * as hexagons  from '../../../assets/chennaiGrid.geojson';
 
 @Component({
   moduleId: module.id,
@@ -20,6 +20,12 @@ export class NavigatorComponent implements AfterContentInit, OnChanges {
 
   constructor() {
     this.mapLoaded = new AsyncSubject();
+  }
+
+  loadHexagons() {
+    this.mapLoaded.subscribe( map => {
+      // console.log(hexagons);
+    });
   }
 
   ngAfterContentInit() {
@@ -49,11 +55,14 @@ export class NavigatorComponent implements AfterContentInit, OnChanges {
       this.mapLoaded.next(map);
       this.mapLoaded.complete();
     });
+
+    this.loadHexagons();
   }
 
   onNotify(message:string):void {
     // alert(message);
   }
+
 
   ngOnChanges() {
     if(this.navigatorData) {
