@@ -1,0 +1,12 @@
+// Remove sql query box 
+// Move to mapbox gl ?
+// can't get the css to stick to the mapbox-popup when it's under the navigator-component
+// FIXED by putting it in the main.css file
+
+Update dates on top, add interval slider, next frame button
+
+Play the reports over time range given z interval
+Get hexagons on map
+style flood markers 
+
+Deploy, set up website (terraform)
