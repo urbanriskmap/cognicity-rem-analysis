@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Input } from '@angular/core';
 import { AfterContentInit, OnChanges } from '@angular/core';
 import { AsyncSubject } from 'rxjs/Rx';
+import { MapService } from '../map.service';
 import * as topojson from 'topojson';
 import * as mapboxgl from 'mapbox-gl';
 // import * as hexagons  from '../../../assets/chennaiGrid.geojson';
@@ -18,12 +19,30 @@ export class NavigatorComponent implements AfterContentInit, OnChanges {
 
   private mapLoaded: AsyncSubject<any>;
 
-  constructor() {
+  constructor(private mapService: MapService) {
     this.mapLoaded = new AsyncSubject();
   }
 
   loadHexagons() {
     this.mapLoaded.subscribe( map => {
+      this.mapService.getHexagons().subscribe(hexGeoJson => {
+        map.addSource('hexagonsGeoJson',
+          {
+            'type':'geojson',
+            'data': hexGeoJson
+          });
+
+        map.addLayer(
+          {
+            'id': 'hexagonLayer',
+            'source': 'hexagonsGeoJson',
+            'type': 'fill',
+            'paint': {
+                'fill-opacity': .2,
+                'fill-color': '#ff0000'
+            }
+          });
+      });
       // console.log(hexagons);
     });
   }

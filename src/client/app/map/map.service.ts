@@ -6,7 +6,7 @@ import { TimeRange }  from './timeline/timeline.module';
 import 'rxjs/add/operator/map';
 
 //  TODO pull this into config
-const BASE_URL = 'http://data.riskmap.in';
+const BASE_URL = 'https://data.riskmap.in';
 const ARCHIVE_END_POINT = BASE_URL + '/reports/archive';
 
 //TODO: how do we design this endpoint better?
@@ -59,7 +59,8 @@ export class MapService {
 
   allReportsBetweenDates(range: TimeRange) {
     let headers = new Headers();
-    headers.append('Access-Control-Allow-Origin', '*');
+    //headers.append('Access-Control-Allow-Origin', '*');
+    //headers.append('crossorigin', 'anonymous');
 
     let startIsoString = moment(range.start).format();
     let endIsoString = moment(range.end).format();
@@ -69,7 +70,7 @@ export class MapService {
     params.set('end', endIsoString);
     params.set('geoformat', 'topojson');
     console.log(params.toString());
-    return this.http.get( ARCHIVE_END_POINT+'?',
+    return this.http.get( ARCHIVE_END_POINT,
       {
         search: params,
         headers: headers
@@ -77,5 +78,12 @@ export class MapService {
     )
       .map((res:Response) => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'server error trying to get all reports'));
+  }
+
+  getHexagons() {
+    return this.http.get( '/assets/chennaiGrid2.geojson')
+            .map((res:Response) => res.json())
+            .catch((error:any) => Observable.throw(error.json().error || 'Error trying to load hexagons'));
+    ;
   }
 }
